@@ -24,14 +24,14 @@ class FeedCard extends StatefulWidget {
 }
 
 class _FeedCardState extends State<FeedCard> {
-  int commentLength = 0;
+  int _commentLength = 0;
   @override
   void initState() {
-    countComment();
     super.initState();
+    _countComment();
   }
 
-  Future<void> countComment() async {
+  Future<void> _countComment() async {
     final snap = await firestore
         .collection(tweetsCollection)
         .doc(widget.tweet.tweetId)
@@ -40,7 +40,7 @@ class _FeedCardState extends State<FeedCard> {
 
     if (mounted) {
       setState(() {
-        commentLength = snap.docs.length;
+        _commentLength = snap.docs.length;
       });
     }
   }
@@ -204,7 +204,7 @@ class _FeedCardState extends State<FeedCard> {
                       width: 5.0,
                     ),
                     Text(
-                      commentLength.toString(),
+                      _commentLength.toString(),
                       style: const TextStyle(color: AppColors.greyColor),
                     )
                   ],
